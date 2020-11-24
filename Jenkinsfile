@@ -61,18 +61,14 @@ pipeline {
               success {
                   echo 'Successfully Cloned Repository'
 
-                  mail  to: 'inher0815@gmail.com',
-                        subject: "Deploy Frontend Success",
-                        body: "Successfully deployed frontend!"
+                  slackSend (channel: '#jenkinstest', color: '#00FF00', message: "Successfully deployed frontend!: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
 
               }
 
               failure {
                   echo 'I failed :('
-
-                  mail  to: 'inher0815@gmail.com',
-                        subject: "Failed Pipelinee",
-                        body: "Something is wrong with deploy frontend"
+                  
+                  slackSend (channel: '#jenkinstest', color: '#00FF00', message: "Something is wrong with deploy frontend: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
               }
           }
         }
@@ -147,10 +143,7 @@ pipeline {
 
           post {
             success {
-              mail  to: 'inher0815@gmail.com',
-                    subject: "Deploy Success",
-                    body: "Successfully deployed!"
-                  
+              slackSend (channel: '#jenkinstest', color: '#00FF00', message: "Successfully deployed!: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
             }
           }
         }
